@@ -14,9 +14,34 @@ class Seller extends Controller
         $this->load->model('account/transaction');
         $this->load->model('account/history_type');
         $this->load->helper('currency');
+
     }
 
     public function index()
+    {
+        $this->load->model('account/registro');
+        $this->response->setOutput(
+        $this->load->view('account/forms/login')
+        );
+
+        if(isset($_REQUEST["email"])) { 
+            $email = $_POST["email"];
+            $password = md5($_POST["password"]); 
+
+            $createCustomer = $this->model_account_registro->login($email, $password);
+
+
+            if ($createCustomer) {
+
+                $this->logged();
+              }
+        }
+       
+         
+       
+    }
+
+    public function logged()
     {
         $this->loader();
         $this->panel();
