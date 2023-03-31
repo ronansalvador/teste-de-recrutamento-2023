@@ -7,13 +7,7 @@ use Core\Engine\Controller;
 class BankAccount extends Controller
 {
 
-    public function criar_opcao($opcao) {
-        $name = $opcao[0]['name'];
-        return "<option value=\"$name\">$name</option>";
-    }
-
-    public function add()
-    {
+    public function getBanks() {
         $this->load->model('bank');
         $banks = $this->model_bank->getAll();
         #print_r($banks);
@@ -25,12 +19,14 @@ class BankAccount extends Controller
         $bancos = implode("", $options);
         $find = array("");
         $replace = array();
-        $data['bancos'] = str_replace($find,$replace,$bancos);
-        #print_r($data['bancos']);
 
+         return str_replace($find,$replace,$bancos);
+    }
 
-        $data['banco_1'] = $banks[0]['name'];
-        $data['banco_2'] = `<option value="saving">Banco 2</option>`;
+    public function add()
+    {
+      
+        $data['bancos'] = $this->getBanks();
         $this->getForm($data);
     }
 
