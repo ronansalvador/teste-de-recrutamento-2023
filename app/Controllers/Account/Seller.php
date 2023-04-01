@@ -20,9 +20,12 @@ class Seller extends Controller
     public function index()
     {
         $this->load->model('account/registro');
+        $data['header'] = $this->load->view('account/header');
+        $data['footer'] = $this->load->view('account/footer');
         $this->response->setOutput(
-        $this->load->view('account/forms/login')
+            $this->load->view('account/tabs/login', $data)
         );
+       
 
         if(isset($_REQUEST["email"])) { 
             $email = $_POST["email"];
@@ -146,6 +149,8 @@ class Seller extends Controller
         $data['title']     = "Área do Vendedor";
         $data['tabs']      = $this->getTabs();
         $data['left_menu'] = $this->load->view('account/leftMenu');
+        $data['header'] = $this->load->view('account/header');
+        $data['footer'] = $this->load->view('account/footer');
 
         $this->response->setOutput(
             $this->load->view('account/seller', $data)

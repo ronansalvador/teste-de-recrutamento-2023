@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Ronan;
+namespace App\Controllers\Account;
 
 use Core\Engine\Controller;
 
