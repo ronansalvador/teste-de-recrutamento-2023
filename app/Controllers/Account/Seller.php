@@ -134,14 +134,48 @@ class Seller extends Controller
         $this->getForm($data);
     }
 
-    public function bankaccounts()
-    {
+    public function getAccounts() {
         $this->load->model('bank');
         $user = $_SESSION['customer_id'];
         $accounts = $this->model_bank->getAccountsByUser($user);
-        print_r($accounts);
+        #print_r($accounts);
+
+        $table_tr = array_map(function($item) {
+            return "
+            <tr>
+                <td scope='row'>{$item['bank_name']}</td>
+            <td>{$item['type_account_name']}</td>
+            <td>{$item['agencia']}</td>
+            <td>{$item['conta']}</td>
+            <td>
+                <div class='d-flex justify-content-around'>
+                    <button data-bs-toggle='tooltip' data-bs-placement='top' data-bs-title='Tooltip on top' style='height: 37px;' type='button' class='btn btn-dark'>
+                        <i class='fa-sharp fa-solid fa-pen'></i>
+                    </button>
+                    <button type='button' class='btn btn-dark'>
+                        <i class='fa-solid fa-trash'></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+            
+            ";
+        }, $accounts);
+
+        $contas = implode("", $table_tr);
+        $find = array("");
+        $replace = array();
+
+         return str_replace($find,$replace,$contas);
+    }
+
+    
+
+    public function bankaccounts()
+    {
+        $data['contas'] = $this->getAccounts();
         $data['selected_tab'] = 3;
-        $data['tabBody'] = $this->load->view('account/tabs/bankAccount');
+        $data['tabBody'] = $this->load->view('account/tabs/bankAccount', $data);
 
         $this->getForm($data);
     }
