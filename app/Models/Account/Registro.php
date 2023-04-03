@@ -17,7 +17,7 @@ class Registro extends Model
     public function login($email, $password)
     {
        return $this->db->query("
-            SELECT email, password FROM customer WHERE email='$email' AND password='$password'
+            SELECT customer_id, email, password FROM customer WHERE email='$email' AND password='$password'
         ");
 
         #return $this->db->countAffected($teste);

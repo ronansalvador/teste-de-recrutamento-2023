@@ -33,13 +33,19 @@ class Seller extends Controller
 
             $createCustomer = $this->model_account_registro->login($email, $password);
 
+            print_r($createCustomer);
+
+            
+
+            
+
             if (!$createCustomer){
                 echo 'login invalido';
             }
 
 
             if ($createCustomer) {
-
+                $_SESSION['customer_id'] = $createCustomer[0]['customer_id'];
                 $this->logged();
               }
         }

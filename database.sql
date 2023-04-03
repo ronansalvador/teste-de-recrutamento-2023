@@ -32,6 +32,13 @@ CREATE TABLE `bank` (
 ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+/* CREATE TABLE `bank` (
+  `bank_id` int NOT NULL AUTO_INCREMENT,
+  `long_name` text,
+  `name` varchar(45) DEFAULT NULL UNIQUE,
+  PRIMARY KEY (`bank_id`)
+); */
+
 --
 -- Dumping data for table `bank`
 --
@@ -53,10 +60,13 @@ CREATE TABLE `bank_account` (
   `bank_account_id` int NOT NULL AUTO_INCREMENT,
   `customer_id` int NOT NULL,
   `bank_id` int NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
+  `type_account_id` int NOT NULL,
+  `agencia` varchar(10) NOT NULL,
+  `conta` varchar(10) NOT NULL,
   PRIMARY KEY (`bank_account_id`),
   KEY `customer_id` (`customer_id`),
-  KEY `bank_id` (`bank_id`)
+  KEY `bank_id` (`bank_id`),
+  KEY `type_account_id` (`type_account_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

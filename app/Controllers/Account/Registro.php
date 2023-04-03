@@ -9,9 +9,11 @@ class Registro extends Controller
     public function index()
     {
         $this->load->model('account/registro');
+        $data['header'] = $this->load->view('account/header');
+        $data['footer'] = $this->load->view('account/footer');
         
         $this->response->setOutput(
-            $this->load->view('account/forms/registro')
+            $this->load->view('account/forms/registro', $data)
          );
 
          #$firstname = 'Ronan'; 
@@ -29,6 +31,8 @@ class Registro extends Controller
             $telephone = $_POST["telephone"];
 
             $createCustomer = $this->model_account_registro->create($firstname, $lastname, $email, $password, $telephone);
+
+           
          }
 
       
