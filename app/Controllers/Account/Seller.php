@@ -33,7 +33,7 @@ class Seller extends Controller
 
             $createCustomer = $this->model_account_registro->login($email, $password);
 
-            print_r($createCustomer);
+            #print_r($createCustomer);
 
             
 
@@ -136,6 +136,10 @@ class Seller extends Controller
 
     public function bankaccounts()
     {
+        $this->load->model('bank');
+        $user = $_SESSION['customer_id'];
+        $accounts = $this->model_bank->getAccountsByUser($user);
+        print_r($accounts);
         $data['selected_tab'] = 3;
         $data['tabBody'] = $this->load->view('account/tabs/bankAccount');
 

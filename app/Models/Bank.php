@@ -48,9 +48,7 @@ class Bank extends Model
             WHERE
                 name='$banco'
         ");
-    }
-
-    
+    }    
 
     public function createAccount($typeAccountId, $bancoId, $user, $agencia, $conta)
     {
@@ -59,6 +57,18 @@ class Bank extends Model
         INSERT INTO bank_account (customer_id, bank_id, type_account_id, agencia, conta)
         VALUES ($user, $bancoId, $typeAccountId, '$agencia', '$conta');
         ");
+    }
+
+    public function getAccountsByUser($user)
+    {
+        return $this->db->query("
+        SELECT ba.*, b.name AS bank_name, ta.name AS type_account_name
+        FROM bank_account ba
+        JOIN bank b ON ba.bank_id = b.bank_id
+        JOIN type_account ta ON ba.type_account_id = ta.type_account_id
+        JOIN customer c ON ba.customer_id = c.customer_id
+        WHERE c.customer_id= $user;
+    "); 
     }
 
 }
