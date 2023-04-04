@@ -3,6 +3,7 @@
 namespace App\Controllers\Account;
 
 use Core\Engine\Controller;
+use DateTime;
 
 class Seller extends Controller
 {
@@ -196,10 +197,42 @@ class Seller extends Controller
         $this->getForm($data);
     }
 
+    public function getTransfersByUser()
+    {
+        #echo 'entrou na função get';
+        $this->load->model('transfer');
+        $user = $_SESSION['customer_id'];
+        #echo $user;
+        $tranfers = $this->model_transfer->getTranfersByUser($user);
+        #print_r($tranfers); 
+        $table_tr = array_map(function($item) {
+
+            $dateTime = new DateTime($item['date']);
+            $date = $dateTime->format('d/m/Y');
+            $valor = "R$ " . number_format($item['amount'], 2, ',', '.');
+            return "
+            <tr>
+                <td scope='row'>{$item['bank_name']}</td>
+                <td>{$valor}</td>
+                <td>{$item['status']}</td>
+                <td>{$date}</td>
+            </tr>       
+            ";
+        }, $tranfers);
+
+        $contas = implode("", $table_tr);
+        $find = array("");
+        $replace = array();
+
+         return str_replace($find,$replace,$contas); 
+    }
+
     public function transfers()
     {
+       
+        $data['tranfers'] = $this->getTransfersByUser();
         $data['selected_tab'] = 4;
-        $data['tabBody'] = $this->load->view('account/tabs/transfer');
+        $data['tabBody'] = $this->load->view('account/tabs/transfer', $data);
 
         $this->getForm($data);
     }
@@ -211,6 +244,7 @@ class Seller extends Controller
         $data['left_menu'] = $this->load->view('account/leftMenu');
         $data['header'] = $this->load->view('account/header');
         $data['footer'] = $this->load->view('account/footer');
+        $data['tranfers'] = $this->getTransfersByUser();
 
         $this->response->setOutput(
             $this->load->view('account/seller', $data)

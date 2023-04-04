@@ -67,4 +67,19 @@ class Transfer extends Model
         return $id;
     }
 
+    public function getTranfersByUser($user)
+    {
+        return $this->db->query("
+        SELECT
+            t.*, b.name AS bank_name, tr.date_added AS date
+        FROM
+            transfer t
+        JOIN bank_account ba ON t.bank_account_id = ba.bank_account_id
+        JOIN bank b ON ba.bank_id = b.bank_id
+        JOIN transaction tr ON t.transfer_id = tr.transfer_id
+        WHERE
+            t.customer_id=$user
+    ");
+    }
+
 }
