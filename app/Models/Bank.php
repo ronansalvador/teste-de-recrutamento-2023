@@ -71,4 +71,35 @@ class Bank extends Model
     "); 
     }
 
+    public function checkTransfers($user, $account)
+    {
+        return $this->db->query("
+        SELECT * FROM `transfer` WHERE customer_id = $user AND bank_account_id = $account;
+        "); 
+    }
+
+    public function getAccount($account)
+    {
+        return $this->db->query("
+        SELECT * FROM `bank_account` WHERE bank_account_id = $account;
+        ");
+
+        #UPDATE `bank_account` SET `agencia` = '1234' WHERE `bank_account`.`bank_account_id` = 3;
+    }
+
+    public function updateAccount($bancoId, $typeAccountId, $agencia, $conta, $account)
+    {
+        return $this->db->query("
+        UPDATE `bank_account` SET `bank_id` = $bancoId, `type_account_id` = $typeAccountId, `agencia` = '$agencia', `conta` = '$conta' WHERE `bank_account`.`bank_account_id` = $account;
+        ");
+
+    }
+
+    public function deleteAccount($account)
+    {
+        return $this->db->query("
+        DELETE FROM `bank_account` WHERE `bank_account`.`bank_account_id` = $account;s
+        ");
+    }
+
 }

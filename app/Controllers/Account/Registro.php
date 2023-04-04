@@ -32,6 +32,9 @@ class Registro extends Controller
 
             $createCustomer = $this->model_account_registro->create($firstname, $lastname, $email, $password, $telephone);
 
+            header('Location: /');
+            exit;
+
            
          }
 

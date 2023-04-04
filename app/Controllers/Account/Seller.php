@@ -54,6 +54,22 @@ class Seller extends Controller
        
     }
 
+    public function teste(){
+
+        echo 'teste';
+
+        $testeif = True;
+        if ($testeif) {
+            echo 'entrou no if';
+            $codigo_js = "<script>alert('Não é possivel alterar');</script>";
+            return $codigo_js;
+        }
+        else {
+            echo 'não pode';
+            #echo '<script>alert("Formulário enviado com sucesso!");</script>';
+        }
+    }
+
     public function logged()
     {
         $this->loader();
@@ -149,10 +165,10 @@ class Seller extends Controller
             <td>{$item['conta']}</td>
             <td>
                 <div class='d-flex justify-content-around'>
-                    <button data-bs-toggle='tooltip' data-bs-placement='top' data-bs-title='Tooltip on top' style='height: 37px;' type='button' class='btn btn-dark'>
+                    <button data-bs-toggle='tooltip' data-bs-placement='top' data-bs-title='Tooltip on top' style='height: 37px;' type='button' class='btn btn-dark edit_account' id='{$item['bank_account_id']}'>
                         <i class='fa-sharp fa-solid fa-pen'></i>
                     </button>
-                    <button type='button' class='btn btn-dark'>
+                    <button type='button' class='btn btn-dark remove_account' id='{$item['bank_account_id']}'>
                         <i class='fa-solid fa-trash'></i>
                     </button>
                 </div>
