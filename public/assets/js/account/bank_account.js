@@ -1,4 +1,4 @@
-var edit = document.getElementsByClassName('edit_account');
+const edit = document.getElementsByClassName('edit_account');
 const remove = document.getElementsByClassName('remove_account');
 console.log(remove);
 

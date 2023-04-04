@@ -163,6 +163,8 @@ class BankAccount extends Controller
     public function getForm($data)
     {
         $data['left_menu'] = $this->load->view('account/leftMenu');
+        $data['header'] = $this->load->view('account/header');
+        $data['footer'] = $this->load->view('account/footer');
         #$data['teste'] = 'Ronan teste';
 
         $this->response->setOutput(

@@ -98,8 +98,14 @@ class Bank extends Model
     public function deleteAccount($account)
     {
         return $this->db->query("
-        DELETE FROM `bank_account` WHERE `bank_account`.`bank_account_id` = $account;s
+        DELETE FROM `bank_account` WHERE `bank_account`.`bank_account_id` = $account;
         ");
     }
 
+    public function getAccountByBankAndUser($bancoId, $user)
+    {
+        return $this->db->query("
+            SELECT bank_account_id FROM `bank_account` WHERE bank_id = $bancoId AND customer_id = $user;
+        ")[0];
+    }
 }
