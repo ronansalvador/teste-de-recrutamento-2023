@@ -16,7 +16,6 @@ class Seller extends Controller
         $this->load->model('account/transaction');
         $this->load->model('account/history_type');
         $this->load->helper('currency');
-
     }
 
     public function logout()
@@ -24,12 +23,10 @@ class Seller extends Controller
         unset($_SESSION['customer_id']);
         header('Location: /account/seller');
         exit;
-
     }
 
     public function index()
     {
-
         if (isset($_SESSION['customer_id'])) {
             $this->logged();
         }
@@ -39,43 +36,23 @@ class Seller extends Controller
         $data['footer'] = $this->load->view('account/footer');
         $this->response->setOutput(
             $this->load->view('account/tabs/login', $data)
-        );
-       
+        );       
 
-        if(isset($_REQUEST["email"])) { 
-            $email = $_POST["email"];
-            $password = md5($_POST["password"]); 
+            if(isset($_REQUEST["email"])) { 
+                $email = $_POST["email"];
+                $password = md5($_POST["password"]); 
 
-            $createCustomer = $this->model_account_registro->login($email, $password);
+                $createCustomer = $this->model_account_registro->login($email, $password);
 
-            if (!$createCustomer){
-                echo "<script>alert('Login Inválido!');</script>";
+                if (!$createCustomer){
+                    echo "<script>alert('Login Inválido!');</script>";
+                }
+                if ($createCustomer) {
+                    $_SESSION['customer_id'] = $createCustomer[0]['customer_id'];
+                    $this->logged();
+                }
             }
-            if ($createCustomer) {
-                $_SESSION['customer_id'] = $createCustomer[0]['customer_id'];
-                $this->logged();
-              }
-        }
-    }
-       
-         
-       
-    }
-
-    public function teste(){
-
-        echo 'teste';
-
-        $testeif = True;
-        if ($testeif) {
-            echo 'entrou no if';
-            $codigo_js = "<script>alert('Não é possivel alterar');</script>";
-            return $codigo_js;
-        }
-        else {
-            echo 'não pode';
-            #echo '<script>alert("Formulário enviado com sucesso!");</script>';
-        }
+        }     
     }
 
     public function logged()
@@ -167,10 +144,10 @@ class Seller extends Controller
             return "
             <tr>
                 <td scope='row'>{$item['bank_name']}</td>
-            <td>{$item['type_account_name']}</td>
-            <td>{$item['agencia']}</td>
-            <td>{$item['conta']}</td>
-            <td>
+                <td>{$item['type_account_name']}</td>
+                <td>{$item['agencia']}</td>
+                <td>{$item['conta']}</td>
+                <td>
                 <div class='d-flex justify-content-around'>
                     <button data-bs-toggle='tooltip' data-bs-placement='top' data-bs-title='Tooltip on top' style='height: 37px;' type='button' class='btn btn-dark edit_account' id='{$item['bank_account_id']}'>
                         <i class='fa-sharp fa-solid fa-pen'></i>
@@ -179,40 +156,30 @@ class Seller extends Controller
                         <i class='fa-solid fa-trash'></i>
                     </button>
                 </div>
-            </td>
-        </tr>
-            
-            ";
+                </td>
+            </tr>";
         }, $accounts);
 
         $contas = implode("", $table_tr);
         $find = array("");
         $replace = array();
-
-         return str_replace($find,$replace,$contas);
-    }
-
-    
+        return str_replace($find,$replace,$contas);
+    }    
 
     public function bankaccounts()
     {
         $data['contas'] = $this->getAccounts();
         $data['selected_tab'] = 3;
         $data['tabBody'] = $this->load->view('account/tabs/bankAccount', $data);
-
         $this->getForm($data);
     }
 
     public function getTransfersByUser()
     {
-        #echo 'entrou na função get';
         $this->load->model('transfer');
         $user = $_SESSION['customer_id'];
-        #echo $user;
         $tranfers = $this->model_transfer->getTranfersByUser($user);
-        #print_r($tranfers); 
         $table_tr = array_map(function($item) {
-
             $dateTime = new DateTime($item['date']);
             $date = $dateTime->format('d/m/Y');
             $valor = "R$ " . number_format($item['amount'], 2, ',', '.');
@@ -222,24 +189,20 @@ class Seller extends Controller
                 <td>{$valor}</td>
                 <td>{$item['status']}</td>
                 <td>{$date}</td>
-            </tr>       
-            ";
+            </tr>";
         }, $tranfers);
 
         $contas = implode("", $table_tr);
         $find = array("");
         $replace = array();
-
-         return str_replace($find,$replace,$contas); 
+        return str_replace($find,$replace,$contas); 
     }
 
     public function transfers()
     {
-       
         $data['tranfers'] = $this->getTransfersByUser();
         $data['selected_tab'] = 4;
         $data['tabBody'] = $this->load->view('account/tabs/transfer', $data);
-
         $this->getForm($data);
     }
 

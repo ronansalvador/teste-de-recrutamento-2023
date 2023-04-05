@@ -141,7 +141,8 @@ class BankAccount extends Controller
         $checkTanfers = $this->model_bank->checkTransfers($user, $account);
 
         if (count($checkTanfers) > 0) {
-            echo 'não pode alterar';
+            header('Location: /account/seller/bankaccounts');
+            exit;
         }
         else {
             $delete = $this->model_bank->deleteAccount($account);

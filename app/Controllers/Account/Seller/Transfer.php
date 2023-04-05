@@ -17,9 +17,7 @@ class Transfer extends Controller
         $accountsUser = implode("", $options);
         $find = array("");
         $replace = array();
-
-         return str_replace($find,$replace,$accountsUser);
-
+        return str_replace($find,$replace,$accountsUser);
     }
 
     public function add()
@@ -28,8 +26,7 @@ class Transfer extends Controller
         $user = $_SESSION['customer_id'];
         $data['accounts'] = $this->getTypeAccount($user);
 
-        if(isset($_REQUEST['bank_account_id'])) {     
-            
+        if(isset($_REQUEST['bank_account_id'])) {            
             $bank_account_id = $_POST['bank_account_id'];
             $getBankId = $this->model_bank->getBankByName($bank_account_id);
             $bancoId = $getBankId[0]['bank_id'];
@@ -41,14 +38,12 @@ class Transfer extends Controller
             $transactionId = $this->model_transfer->insertTransaction($user, $transferId, $amount);
             $historyId = $this->model_transfer->insertHistory($transactionId, $user);
         }
-        
         $this->getForm($data);
     }
 
     public function getForm($data)
     {
         $data['left_menu'] = $this->load->view('account/leftMenu');
-
         $this->response->setOutput(
             $this->load->view('account/forms/addTransfer', $data)
         );

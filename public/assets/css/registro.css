@@ -1,36 +1,26 @@
-.btn-entry {
-    width: 80px !important;
-    margin: 10px !important;
-}
-
-.login-page {
+.register-page {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.login-form {
+.register-form {
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: 300px;
     justify-content: space-around;
     border: 1px solid #e6e6e6;
     padding: 20px;
     border-radius: 5px;
     margin-top: 50px;
     width: 420px;
+    height: 450px;
 }
 
-.btn-login {
+.btn-register {
     width: 100%;
 }
 
-.btn-login:hover {
+.btn-register:hover {
     color: #d57d00 !important;
-}
-
-.login-create a {
-    color: #d57d00 !important;
-    text-transform: uppercase;
 }
