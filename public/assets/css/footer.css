@@ -1,0 +1,77 @@
+footer ul li {
+    margin-bottom: 10px
+}
+
+footer ul li a h3 {
+    font-size: 15px;
+    color: #161616;
+    font-weight: 400
+}
+
+footer ul li a {
+    font-size: 15px;
+    color: #161616
+}
+
+footer ul li a i.far {
+    font-family: fontawesome
+}
+
+footer ul li.title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px
+}
+
+footer ul li.title.fale {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    margin-top: 30px
+}
+
+footer div>div:nth-child(2)>div>h1 {
+    font-size: 12px;
+    text-align: center;
+    padding: 0;
+    margin: 0
+}
+
+footer .modify.font-14 {
+    font-size: 14px
+}
+
+footer .concept-store-description {
+    font-size: 15px;
+    color: #161616
+}
+
+footer .other-company-image {
+    margin-bottom: 20px
+}
+
+footer .copy-right-area {
+    padding-top: 40px;
+    line-height: 16px;
+    color: #999
+}
+
+footer .copy-right-area>div {
+    margin: 10px 0 30px
+}
+
+footer .copy-right-area h3 {
+    display: inline;
+    font-size: 12px;
+    font-weight: 400
+}
+
+footer .break {
+    border-top: solid 1px #ccc;
+    height: 40px
+}
+
+footer .container {
+    margin-top: 40px;
+    padding-bottom: 40px
+}

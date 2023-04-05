@@ -1,0 +1,26 @@
+.register-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 1px solid #e6e6e6;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 50px;
+    width: 420px;
+    height: 450px;
+}
+
+.btn-register {
+    width: 100%;
+}
+
+.btn-register:hover {
+    color: #d57d00 !important;
+}
