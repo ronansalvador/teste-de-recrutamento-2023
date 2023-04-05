@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `recrutamento` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `recrutamento`;
 -- phpMyAdmin SQL Dump
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
