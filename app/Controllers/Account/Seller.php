@@ -3,6 +3,7 @@
 namespace App\Controllers\Account;
 
 use Core\Engine\Controller;
+use Core\Engine\Session;
 use DateTime;
 
 class Seller extends Controller
@@ -18,8 +19,21 @@ class Seller extends Controller
 
     }
 
+    public function logout()
+    {
+        unset($_SESSION['customer_id']);
+        header('Location: /account/seller');
+        exit;
+
+    }
+
     public function index()
     {
+
+        if (isset($_SESSION['customer_id'])) {
+            $this->logged();
+        }
+        else {
         $this->load->model('account/registro');
         $data['header'] = $this->load->view('account/header');
         $data['footer'] = $this->load->view('account/footer');
@@ -34,22 +48,15 @@ class Seller extends Controller
 
             $createCustomer = $this->model_account_registro->login($email, $password);
 
-            #print_r($createCustomer);
-
-            
-
-            
-
             if (!$createCustomer){
-                echo 'login invalido';
+                echo "<script>alert('Login Inválido!');</script>";
             }
-
-
             if ($createCustomer) {
                 $_SESSION['customer_id'] = $createCustomer[0]['customer_id'];
                 $this->logged();
               }
         }
+    }
        
          
        
@@ -111,7 +118,6 @@ class Seller extends Controller
     private function getBalance()
     {
         $balance = $this->model_account_balance->get($this->session->get('customer_id'));
-
         $balance['available'] = $this->helper_currency->format($balance['available']);
         $balance['future']    = $this->helper_currency->format($balance['future']);
         $balance['blocked']   = $this->helper_currency->format($balance['blocked']);

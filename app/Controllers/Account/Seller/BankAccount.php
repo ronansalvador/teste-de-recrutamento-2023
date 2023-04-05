@@ -86,24 +86,18 @@ class BankAccount extends Controller
         $checkTanfers = $this->model_bank->checkTransfers($user, $account);
 
         if (count($checkTanfers) > 0) {
-            echo 'não pode alterar';
+            header('Location: /account/seller/bankaccounts');
+            exit;
         }
         else {
-
-            #echo 'ok pode alterar';
             $data['bancos'] = $this->getBanks();
             $data['typeAccount'] = $this->getTypeAccount();
             $editAccount = $this->model_bank->getAccount($account);
             $data['agencia'] = $editAccount[0]['agencia'];
-            $data['conta'] = $editAccount[0]['conta'];
-            #print_r($editAccount);
-            #echo $data['agencia'];            
+            $data['conta'] = $editAccount[0]['conta'];           
             $data['left_menu'] = $this->load->view('account/leftMenu');
             $data['header'] = $this->load->view('account/header');
-            $data['footer'] = $this->load->view('account/footer');
-            #$data['teste'] = 'Ronan teste';
-
-       
+            $data['footer'] = $this->load->view('account/footer');       
 
             if(isset($_REQUEST["type_account"])) {
                 $typeAccount = $_POST["type_account"];

@@ -42,23 +42,25 @@
 	</div>
 </div>
 <div name="data-filter-form" class="col-md-12 mb-4">
-	<div class="row">
-		<div class="col-6">
-			<label class="form-label">Data início</label>
-			<input type="date" class="form-control" placeholder="">
+	
+		<div class="row">
+			<div class="col-6">
+				<label class="form-label">Data início</label>
+				<input type="date" id="data-inicio" class="form-control" placeholder="">
+			</div>
+			<div class="col-6">
+				<label class="form-label">Data fim</label>
+				<input type="date" id="data-fim" class="form-control" placeholder="">
+			</div>
 		</div>
-		<div class="col-6">
-			<label class="form-label">Data fim</label>
-			<input type="date" class="form-control" placeholder="">
-		</div>
-	</div>
+	
 </div>
 <div name="historic-area" class="col-md-12">
 	<div class="card p-0">
 		<div class="card-header">
 			Histórico
 		</div>
-		<div class="card-body">
+		<div class="card-body" id="history">
 			{% if histories %}
 				{% for history in histories %}
 					<div style="background-color: {{ history.history_type.color }};" name"card" class="col-md-12 p-2 mb-2 historic">
@@ -91,7 +93,7 @@
 											</div>
 										{% endif %}
 									</div>
-									<div class="col-md-3">{{ history.date_added }}</div>
+									<div class="col-md-3 date_added">{{ history.date_added }}</div>
 								</div>
 							</div>
 						</div>
@@ -105,3 +107,5 @@
 		</div>
 	</div>
 </div>
+
+<script src="/assets/js/account/history.js"></script>

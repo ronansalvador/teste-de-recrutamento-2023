@@ -32,15 +32,16 @@ class Registro extends Controller
 
             $createCustomer = $this->model_account_registro->create($firstname, $lastname, $email, $password, $telephone);
 
-            header('Location: /');
-            exit;
+            if (!$createCustomer){
+                echo 'login invalido';
+            }
 
-           
+
+            if ($createCustomer) {
+                $_SESSION['customer_id'] = $createCustomer;
+                header('Location: /');
+                exit;
+              }
          }
-
-      
-        
-         #$createCustomer = $this->model_account_registro->create($firstname, $lastname, $email, $password, $telephone);
-         #echo $createCustomer;
     }
 }

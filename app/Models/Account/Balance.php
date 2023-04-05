@@ -26,24 +26,17 @@ class Balance extends Model
     {
         $available = @$this->db->query("
             SELECT
-                abs(value) AS amount
+                sum(value) AS amount
             FROM
                 transaction
             WHERE
-                    (
-                        CASE
-                            WHEN
-                                product_id is not null
-                                    AND
-                                order_id is not null
-                            THEN
-                                DATE_ADD(DATE_FORMAT(date_added, '%Y-%m-%d'), INTERVAL 30 DAY) <= NOW()
-                            ELSE
-                                1 = 1
-                        END
-                    )
+                    customer_id = $this->customer_id
                     AND
-                        value < 0
+                    product_id is not null
+                    AND
+                    order_id is not null
+                    AND
+                        value > 0
                     AND
                         status = 1
             LIMIT 1;
@@ -56,7 +49,7 @@ class Balance extends Model
     {
         $future = @$this->db->query("
             SELECT
-                abs(value) AS amount
+                sum(value) AS amount
             FROM
                 transaction
             WHERE
@@ -68,7 +61,7 @@ class Balance extends Model
                 AND
                     DATE_ADD(DATE_FORMAT(date_added, '%Y-%m-%d'), INTERVAL 30 DAY) > NOW()
                 AND
-                    value < 0
+                    value > 0
                 AND
                     status = 1
             LIMIT 1;
@@ -81,7 +74,7 @@ class Balance extends Model
     {
         $blocked = @$this->db->query("
             SELECT
-                abs(value) AS amount
+                sum(value) AS amount
             FROM
                 transaction
             WHERE

@@ -4,8 +4,7 @@ console.log(remove);
 
 for (let i = 0; i < edit.length; i++) {
     edit[i].addEventListener('click', function() {
-      //alert(`editar o elemento ${edit[i].id}`);
-      
+            
       window.location.href = `bankaccount/edit?account=${edit[i].id}`;
       alert(`Uma conta bancária só pode ser deletada, se ela não foi utilizada em nenhuma transferência!`);
       
